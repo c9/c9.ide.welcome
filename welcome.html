@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+    </head>
+    <body>
+        <script>
+            var host = location.href.match(/host=(.*)/)[1];
+            
+            /*global markdown*/
+            window.addEventListener("message", function(e){
+                if (e.origin !== host)
+                    return;
+                
+                // if (e.data.type == "document")
+            }, false);
+            // window.parent.postMessage({message: "stream.document"}, host);
+        </script>
+    </body>
+</html>
