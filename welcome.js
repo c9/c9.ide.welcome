@@ -1,34 +1,44 @@
 define(function(require, exports, module) {
-    main.consumes = ["Plugin", "ui", "tabManager", "settings", "c9"];
-    main.provides = ["home"];
+    main.consumes = [
+        "Editor", "editors", "ui", "tabManager", "settings", "c9", "fs", "Form",
+        "commands"
+    ];
+    main.provides = ["welcome"];
     return main;
 
+     /*
+        Logo
+        User Name
+        Workspace Name
+        
+        Change Main Theme
+        Change Ace Theme
+        Open Recent Files
+        Point to preferences
+        Switch Layouts
+        
+        List of recent blog articles
+        Walkthroughs (movies)
+        Docs
+        
+        * Also open readme
+    */
+
     function main(options, imports, register) {
-        var Plugin     = imports.Plugin;
+        var Editor     = imports.Editor;
+        var editors    = imports.editors;
         var ui         = imports.ui;
         var c9         = imports.c9;
+        var fs         = imports.fs;
+        var commands   = imports.commands;
         var tabManager = imports.tabManager;
         var settings   = imports.settings;
+        var Form       = imports.Form;
         
         /***** Initialization *****/
         
-        var plugin = new Plugin("Ajax.org", main.consumes);
-        var emit   = plugin.getEmitter();
-        
-        /*
-            Logo
-            User Name
-            Workspace Name
-            Change Main Theme
-            Change Ace Theme
-            Open Recent Files
-            Point to preferences
-            List of recent blog articles
-            Walkthroughs (movies)
-            
-            Also open readme
-        */
-        
+        var handle = editors.register("welcome", "URL Viewer", Welcome, []);
+    
         var loaded = false;
         function load() {
             if (loaded) return false;
@@ -40,13 +50,13 @@ define(function(require, exports, module) {
                         show(function(){
                             settings.set("state/welcome/@first", true);
                         });
+                        // fs.exists("/README.md", function(exists){
+                        //     if (exists)
+                        //         tabManager.openFile("/README.md", function(){});
+                        // });
                     }
-                    else {
-                        var tab = search();
-                        if (tab) listen(tab);
-                    }
-                });
-            });
+                }, handle);
+            }, handle);
         }
         
         var drawn = false;
@@ -55,10 +65,13 @@ define(function(require, exports, module) {
             drawn = true;
             
             // Insert CSS
-            ui.insertCss(require("text!./style.css"), plugin);
-        
-            emit("draw");
+            ui.insertCss(require("text!./style.css"), 
+                options.staticPrefix, handle);
         }
+        
+        handle.on("load", load);
+
+        var counter  = 0;
         
         /***** Methods *****/
         
@@ -83,82 +96,119 @@ define(function(require, exports, module) {
                 return tabManager.focusTab(tab);
             
             tabManager.open({ 
-                editorType : "urlview", 
-                value      : options.staticPrefix 
-                    + "/welcome.html?host=" + location.origin, 
+                editorType : "welcome", 
                 noanim     : true,
-                document   : { 
-                    title : "Welcome", 
-                    meta  : { 
-                        welcome: true 
-                    } 
-                }, 
                 active     : true 
-            }, function(err, tab){ 
-                listen(tab);
-                cb && cb(err, tab);
+            }, cb);
+        }
+        
+        function Welcome(){
+            var plugin = new Editor("Ajax.org", main.consumes, []);
+            //var emit   = plugin.getEmitter();
+            
+            var container;
+            
+            plugin.on("draw", function(e){
+                // Create UI elements
+                container = e.htmlNode;
+                
+                ui.insertHtml(container, require("text!./welcome.html"), plugin);
+                
+                var form = new Form({
+                    edge      : "3 3 8 3",
+                    model     : settings.model,
+                    rowheight : 35,
+                    colwidth  : 150,
+                    style     : "padding:10px;",
+                    form      : [
+                        {
+                            title : "Choose Main Theme",
+                            type  : "dropdown",
+                            path  : "user/general/@skin",
+                            width : 150,
+                            items : [
+                                { caption: "Cloud9 Dark Theme", value: "dark" },
+                                { caption: "Cloud9 Bright Theme", value: "white" }
+                            ],
+                            position : 100
+                        },
+                        // "Choose Ace Theme" : {
+                        //     type  : "dropdown",
+                        //     path  : "user/ace/@theme",
+                        //     width : 150,
+                        //     items : [
+                        //         { caption: "Cloud9 Dark Theme", value: "dark" },
+                        //         { caption: "Cloud9 Bright Theme", value: "white" }
+                        //     ],
+                        //     position : 900
+                        // },
+                        // Switch Layouts
+                        // Key Bindings
+                        {
+                            title        : "Soft Tabs",
+                            type         : "checked-spinner",
+                            checkboxPath : "project/ace/@useSoftTabs",
+                            path         : "project/ace/@tabSize",
+                            min          : "1",
+                            max          : "64",
+                            width        : "50",
+                            position     : 200
+                        },
+                        {
+                            title    : "Enable Auto-Save",
+                            type     : "checkbox",
+                            position : 300,
+                            path     : "user/general/@autosave"
+                        }
+                    ]
+                });
+                
+                form.attachTo(container.querySelector(".configure .form"));
+                
+                container.querySelector(".configure .more").onclick = function(){
+                    commands.exec("openpreferences");
+                };
+                container.querySelector(".openterminal").onclick = function(){
+                    tabManager.openEditor("terminal", true, function(){});
+                };
+                container.querySelector(".openconsole").onclick = function(){
+                    commands.exec("toggleconsole");
+                };
+                container.querySelector(".newfile").onclick = function(){
+                    commands.exec("newfile");
+                };
             });
-        }
-        
-        function listen(tab){
-            var session = tab.document.getSession();
             
-            var staticHost = (c9.staticUrl.match(/(http:\/\/.*?)\//) || false)[1] 
-                || location.origin;
+            /***** Method *****/
+            
+            /***** Lifecycle *****/
+            
+            plugin.on("load", function(){
                 
-            window.addEventListener("message", function(e) {
-                if (c9.hosted && event.origin !== staticHost)
-                    return;
+            });
+            plugin.on("documentLoad", function(e){
+                var doc = e.doc;
+                var tab = doc.tab;
+                tab.backgroundColor = "#203947";
+                tab.className.add("dark");
                 
-                // if (e.data.message == "stream.document") {
-                //     session.source = e.source;
-                //     session.source.postMessage({
-                //         type    : "document",
-                //         content : session.previewTab.document.value
-                //     }, location.origin);
-                    
-                //     tab.className.remove("loading");
-                // }
-            }, false);
+                doc.title = "Welcome", 
+                doc.meta.welcome = true;
+            });
+            
+            /***** Register and define API *****/
+            
+            plugin.freezePublicAPI({
+                
+            });
+            
+            plugin.load("welcome" + counter++);
+            
+            return plugin;
         }
-        
-        /***** Lifecycle *****/
-        
-        plugin.on("load", function() {
-            load();
-        });
-        plugin.on("enable", function() {
-            
-        });
-        plugin.on("disable", function() {
-            
-        });
-        plugin.on("unload", function() {
-            loaded = false;
-            drawn  = false;
-        });
-        
-        /***** Register and define API *****/
-        
-        /**
-         * 
-         **/
-        plugin.freezePublicAPI({
-            /**
-             * 
-             */
-            show : show,
-            
-            _events : [
-                /**
-                 * @event draw
-                 */
-                "draw"
-            ]
-        });
         
         register(null, {
-            home: plugin
+            welcome: handle
         });
     }
 });

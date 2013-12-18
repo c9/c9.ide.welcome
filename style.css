@@ -1,3 +1,158 @@
-body{
-    background: red;
+.welcome{
+    background: #193342 url("@{image-path}/welcome-cover.png") top left no-repeat;
+    left: 0;
+    right: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    overflow: auto;
+    display: flex;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-attachment: local;
+    color: #f1f1f1;
+}
+
+.welcome-logo{
+    position: absolute;
+    background: url("@{image-path}/welcome-logo.png") top left no-repeat;
+    width: 155px;
+    height: 103px;
+    left: 32px;
+    top: 34px;
+}
+
+.welcome a{
+    text-decoration: none;
+    color: #9BB11D;
+}
+
+.main {
+    flex: 1;
+    min-width: 460px;
+    overflow: auto;
+    position: relative;
+}
+
+.sidepanel {
+    max-width: 250px;
+    min-width: 150px;
+    flex: 1;
+    padding: 30px 30px 0 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.08);
+    overflow: auto;
+}
+
+.welcome:after {
+    height: 7px;
+    background: rgba(255,255,255,0.03);
+    content: "";
+    position: absolute;
+    left: 775px;
+    right: 0;
+    top: 0;
+}
+
+.welcome .welcome-heading {
+    position: absolute;
+    font-size: 60px;
+    font-family: Myriad Pro, Arial;
+    color: #f1f1f1;
+    top: 67px;
+    left: 205px;
+    font-weight: normal;
+}
+
+.welcome .intro {
+    position: absolute;
+    color: #f1f1f1;
+    font-family: Arial;
+    font-size: 12px;
+    left: 35px;
+    top: 160px;
+    width: 400px;
+    line-height: 1.5em;
+}
+
+.welcome h3{
+    font-weight : normal;
+    font-size : 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.39);
+    padding-bottom: 4px;
+    margin-bottom: 9px;
+}
+
+.sidepanel .video .placeholder{
+    width: 100%;
+    height: 150px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 25px;
+    text-align: center;
+    vertical-align: middle;
+    color: rgba(255, 255, 255, 0.29);
+}
+
+.sidepanel .video .placeholder:after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 1px;
+    vertical-align: middle;
+}
+
+.sidepanel .video label{
+    width: 100%;
+    text-align: center;
+    display: block;
+    margin: 3px;
+}
+
+.welcome .more{
+    display: block;
+    text-align: right;
+    cursor: pointer;
+}
+.welcome .more:hover{
+    text-decoration : underline;
+}
+
+.sidepanel h4{
+    color: #b7d513;
+    margin-bottom : -10px;
+    margin-top: 0px;
+}
+.sidepanel h4:hover{
+    cursor : pointer;
+    text-decoration: underline;
+}
+
+.welcome .configure{
+    margin: 260px 0px 0 35px;
+    width: 400px;
+}
+
+.welcome .next {
+    margin: 0px 0px 0 35px;
+    width: 400px;
+}
+
+.welcome .form .cbblack.cbcontainer span,
+.welcome .label{
+    font-size : 12px;
+    color : #f1f1f1;
+}
+
+.welcome ul {
+    padding: 0 0 0 20px;
+}
+
+.welcome ul li {
+    line-height: 18px;
+    color: #9BB11D;
+    cursor : pointer;
+}
+.welcome ul li:hover{
+    text-decoration : underline;
 }
