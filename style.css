@@ -174,6 +174,7 @@
     margin-left: -200px;
     z-index: 100000;
     box-sizing: border-box;
+    border-radius: 3px;
 }
 .welcome .switched td{
     padding-right : 10px;
@@ -183,7 +184,10 @@
 }
 .welcome .switched h2{
     margin-top: 0;
-    color: rgb(150, 184, 62);
+    color: #5F7525;
+}
+.welcome p{
+    line-height: 1.4em;
 }
 
 .welcome .black_dropdown{
@@ -192,7 +196,7 @@
     .gradient(~"linear-gradient(bottom, rgba(0, 0, 0, 0.13) 0%, rgba(0, 0, 0, 0) 100%)");
 }
 .welcome .black_dropdownOver{
-    .gradient(~"linear-gradient(bottom, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.07) 100%)");
+    .gradient(~"linear-gradient(bottom, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.02) 100%)");
 }
 .welcome .black_dropdownDown{
     .gradient(~"linear-gradient(bottom, rgba(45, 45, 45, 0.08) 0%, rgba(0, 0, 0, 0.07) 100%)");
@@ -200,3 +204,10 @@
 .welcome .black_dropdown .button{
     border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
+/*.c9-optionList{*/
+/*    background: rgba(29, 63, 77, 1);*/
+/*    border: 1px solid #021F2A;*/
+/*}*/
+/*.c9-optionList .c9-dd-item.hover {*/
+/*    background-color: rgba(0, 0, 0, 0.23);*/
+/*}*/
