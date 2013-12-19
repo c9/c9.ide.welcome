@@ -31,7 +31,7 @@ require([
             packagePath: "plugins/c9.core/settings",
             testing: true
         },
-        "plugins/c9.ide.api/api.js",
+        "plugins/c9.core/api.js",
         "plugins/c9.ide.keys/commands",
         "plugins/c9.ide.keys/editor",
         {
