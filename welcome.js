@@ -7,12 +7,10 @@ define(function(require, exports, module) {
     return main;
 
      /*
-        Change Main Theme
-            - Instant Change
-        Change Ace Theme
-            - Get List from Ace
         Switch Layouts
             - Add to layout.js
+        Change Ace Theme
+            - Get List from Ace
     */
 
     function main(options, imports, register) {
@@ -28,7 +26,7 @@ define(function(require, exports, module) {
         /***** Initialization *****/
         
         var handle = editors.register("welcome", "URL Viewer", Welcome, []);
-    
+        
         var loaded = false;
         function load() {
             if (loaded) return false;
@@ -51,6 +49,7 @@ define(function(require, exports, module) {
                     }
                 }, handle);
             }, handle);
+            
         }
         
         var drawn = false;
@@ -116,7 +115,7 @@ define(function(require, exports, module) {
                     style     : "padding:10px;",
                     form      : [
                         {
-                            title : "Choose Main Theme",
+                            title : "Main Theme",
                             type  : "dropdown",
                             path  : "user/general/@skin",
                             width : 150,
@@ -125,6 +124,46 @@ define(function(require, exports, module) {
                                 { caption: "Cloud9 Bright Theme", value: "white" }
                             ],
                             position : 100
+                        },
+                        {
+                            title : "Base Layout",
+                            type  : "dropdown",
+                            path  : "user/general/@layout",
+                            width : 150,
+                            onchange : function(e){
+                                if (e.value == "minimal" && !settings.getBool("state/welcome/@switched")) {
+                                    setTimeout(function(){
+                                        var div = container.querySelector(".switched");
+                                        div.style.display = "block";
+                                        if (!apf.isMac)
+                                            div.innerHTML = div.innerHTML.replace(/Command/g, "Ctrl");
+                                        settings.set("state/welcome/@switched", true);
+                                    }, 500)
+                                }
+                            },
+                            items : [
+                                { caption: "Professional IDE", value: "default" },
+                                { caption: "Programmer's Editor", value: "minimal" }
+                            ],
+                            position : 150
+                        },
+                        {
+                            title : "Split Layout",
+                            type  : "dropdown",
+                            width : 150,
+                            defaultValue : "nosplit",
+                            onchange : function(e){
+                                commands.exec(e.value);
+                            },
+                            items : [
+                                { caption: "No Split", value: "nosplit" },
+                                { caption: "Two Vertical Split", value: "twovsplit" },
+                                { caption: "Two Horizontal Split", value: "twohsplit" },
+                                { caption: "Four Split", value: "foursplit" },
+                                { caption: "Three Split (Left)", value: "threeleft" },
+                                { caption: "Three Split (Right)", value: "threeright" }
+                            ],
+                            position : 150
                         },
                         // "Choose Ace Theme" : {
                         //     type  : "dropdown",
