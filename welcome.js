@@ -1,34 +1,24 @@
 define(function(require, exports, module) {
     main.consumes = [
-        "Editor", "editors", "ui", "tabManager", "settings", "c9", "fs", "Form",
-        "commands"
+        "Editor", "editors", "ui", "tabManager", "settings", "Form",
+        "commands", "fs"
     ];
     main.provides = ["welcome"];
     return main;
 
      /*
-        Logo
-        User Name
-        Workspace Name
-        
         Change Main Theme
+            - Instant Change
         Change Ace Theme
-        Open Recent Files
-        Point to preferences
+            - Get List from Ace
         Switch Layouts
-        
-        List of recent blog articles
-        Walkthroughs (movies)
-        Docs
-        
-        * Also open readme
+            - Add to layout.js
     */
 
     function main(options, imports, register) {
         var Editor     = imports.Editor;
         var editors    = imports.editors;
         var ui         = imports.ui;
-        var c9         = imports.c9;
         var fs         = imports.fs;
         var commands   = imports.commands;
         var tabManager = imports.tabManager;
@@ -50,10 +40,14 @@ define(function(require, exports, module) {
                         show(function(){
                             settings.set("state/welcome/@first", true);
                         });
-                        // fs.exists("/README.md", function(exists){
-                        //     if (exists)
-                        //         tabManager.openFile("/README.md", function(){});
-                        // });
+                        
+                        fs.exists("/README.md", function(exists){
+                            if (exists)
+                                commands.exec("preview", null, { 
+                                    path   : "/README.md", 
+                                    active : false 
+                                });
+                        });
                     }
                 }, handle);
             }, handle);
@@ -89,8 +83,6 @@ define(function(require, exports, module) {
         }
         
         function show(cb) {
-            draw();
-            
             var tab = search();
             if (tab)
                 return tabManager.focusTab(tab);
@@ -109,6 +101,8 @@ define(function(require, exports, module) {
             var container;
             
             plugin.on("draw", function(e){
+                draw();
+                
                 // Create UI elements
                 container = e.htmlNode;
                 
