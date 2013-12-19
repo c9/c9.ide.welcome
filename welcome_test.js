@@ -111,7 +111,7 @@ require([
                 
                 it('should open a pane with just an editor', function(done) {
                     tabs.openEditor("welcome", function(err, tab){
-                        expect(tabs.getTabs()).length(1);
+                        expect(tabs.getTabs()).length(2);
                         
                         done();
                     });

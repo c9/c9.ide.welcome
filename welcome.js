@@ -1,14 +1,12 @@
 define(function(require, exports, module) {
     main.consumes = [
         "Editor", "editors", "ui", "tabManager", "settings", "Form",
-        "commands", "fs"
+        "commands", "fs", "ace"
     ];
     main.provides = ["welcome"];
     return main;
 
      /*
-        Switch Layouts
-            - Add to layout.js
         Change Ace Theme
             - Get List from Ace
     */
@@ -18,6 +16,7 @@ define(function(require, exports, module) {
         var editors    = imports.editors;
         var ui         = imports.ui;
         var fs         = imports.fs;
+        var ace        = imports.ace;
         var commands   = imports.commands;
         var tabManager = imports.tabManager;
         var settings   = imports.settings;
@@ -107,6 +106,18 @@ define(function(require, exports, module) {
                 
                 ui.insertHtml(container, require("text!./welcome.html"), plugin);
                 
+                var list = [];
+                var themes = ace.themes
+                for (var base in themes) {
+                    if (themes[base] instanceof Array)
+                        themes[base].forEach(function (n) {
+                            var themeprop = Object.keys(n)[0];
+                            list.push({ caption: themeprop, value: n[themeprop] });
+                        });
+                    else
+                        list.push({ caption: base, value: base });
+                }
+                
                 var form = new Form({
                     edge      : "3 3 8 3",
                     model     : settings.model,
@@ -118,7 +129,7 @@ define(function(require, exports, module) {
                             title : "Main Theme",
                             type  : "dropdown",
                             path  : "user/general/@skin",
-                            width : 150,
+                            width : 165,
                             items : [
                                 { caption: "Cloud9 Dark Theme", value: "dark" },
                                 { caption: "Cloud9 Bright Theme", value: "white" }
@@ -129,7 +140,7 @@ define(function(require, exports, module) {
                             title : "Base Layout",
                             type  : "dropdown",
                             path  : "user/general/@layout",
-                            width : 150,
+                            width : 165,
                             onchange : function(e){
                                 if (e.value == "minimal" && !settings.getBool("state/welcome/@switched")) {
                                     setTimeout(function(){
@@ -150,7 +161,7 @@ define(function(require, exports, module) {
                         {
                             title : "Split Layout",
                             type  : "dropdown",
-                            width : 150,
+                            width : 165,
                             defaultValue : "nosplit",
                             onchange : function(e){
                                 commands.exec(e.value);
@@ -165,17 +176,17 @@ define(function(require, exports, module) {
                             ],
                             position : 150
                         },
-                        // "Choose Ace Theme" : {
-                        //     type  : "dropdown",
-                        //     path  : "user/ace/@theme",
-                        //     width : 150,
-                        //     items : [
-                        //         { caption: "Cloud9 Dark Theme", value: "dark" },
-                        //         { caption: "Cloud9 Bright Theme", value: "white" }
-                        //     ],
-                        //     position : 900
-                        // },
-                        // Switch Layouts
+                        {
+                            title    : "Editor (Ace) Theme",
+                            type     : "dropdown",
+                            path     : "user/ace/@theme",
+                            width    : 165,
+                            onchange : function(e){
+                                ace.setTheme(e.value);
+                            },
+                            items    : list,
+                            position : 180
+                        },
                         // Key Bindings
                         {
                             title        : "Soft Tabs",
