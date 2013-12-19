@@ -65,14 +65,13 @@
 }
 
 .welcome .intro {
-    position: absolute;
     color: #f1f1f1;
     font-family: Arial;
     font-size: 12px;
-    left: 35px;
-    top: 160px;
-    width: 400px;
+    min-width: 400px;
+    max-width: 600px;
     line-height: 1.5em;
+    margin: 160px 20px 0 35px;
 }
 
 .welcome h3{
@@ -129,7 +128,7 @@
 }
 
 .welcome .configure{
-    margin: 260px 0px 0 35px;
+    margin: 20px 0px 0 35px;
     width: 400px;
 }
 
