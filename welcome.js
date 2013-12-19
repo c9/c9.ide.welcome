@@ -39,13 +39,13 @@ define(function(require, exports, module) {
                             settings.set("state/welcome/@first", true);
                         });
                         
-                        fs.exists("/README.md", function(exists){
-                            if (exists)
-                                commands.exec("preview", null, { 
-                                    path   : "/README.md", 
-                                    active : false 
-                                });
-                        });
+                        // fs.exists("/README.md", function(exists){
+                        //     if (exists)
+                        //         commands.exec("preview", null, { 
+                        //             path   : "/README.md", 
+                        //             active : false 
+                        //         });
+                        // });
                     }
                 }, handle);
             }, handle);
