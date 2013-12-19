@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     main.consumes = [
         "Editor", "editors", "ui", "tabManager", "settings", "Form",
-        "commands", "fs", "ace"
+        "commands", "fs", "ace", "layout"
     ];
     main.provides = ["welcome"];
     return main;
@@ -18,6 +18,7 @@ define(function(require, exports, module) {
         var fs         = imports.fs;
         var ace        = imports.ace;
         var commands   = imports.commands;
+        var layout     = imports.layout;
         var tabManager = imports.tabManager;
         var settings   = imports.settings;
         var Form       = imports.Form;
@@ -138,8 +139,9 @@ define(function(require, exports, module) {
                         {
                             title : "Base Layout",
                             type  : "dropdown",
-                            path  : "user/general/@layout",
+                            // path  : "user/general/@layout",
                             width : 165,
+                            defaultValue : "default",
                             onchange : function(e){
                                 if (e.value == "minimal" && !settings.getBool("state/welcome/@switched")) {
                                     setTimeout(function(){
@@ -150,6 +152,10 @@ define(function(require, exports, module) {
                                         settings.set("state/welcome/@switched", true);
                                     }, 500)
                                 }
+                                
+                                setTimeout(function(){
+                                    layout.setBaseLayout(e.value);
+                                });
                             },
                             items : [
                                 { caption: "Professional IDE", value: "default" },
