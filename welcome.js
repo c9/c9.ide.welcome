@@ -114,7 +114,7 @@ define(function(require, exports, module) {
                             list.push({ caption: themeprop, value: n[themeprop] });
                         });
                     else
-                        list.push({ caption: base, value: base });
+                        list.push({ caption: base, value: themes[base] });
                 }
                 
                 var form = new Form({
