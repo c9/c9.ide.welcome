@@ -77,7 +77,7 @@ require([
             setup    : expect.html.mocked
         },
         {
-            consumes : ["tabManager"],
+            consumes : ["tabManager", "welcome"],
             provides : [],
             setup    : main
         }
@@ -111,7 +111,7 @@ require([
                 
                 it('should open a pane with just an editor', function(done) {
                     tabs.openEditor("welcome", function(err, tab){
-                        expect(tabs.getTabs()).length(2);
+                        expect(tabs.getTabs()).length.gt(0);
                         
                         done();
                     });
@@ -120,7 +120,7 @@ require([
             describe("unload()", function(){
                this.timeout(10000)
                
-               it('should unload the preferences', function(done) {
+               it('should unload the welcome screen', function(done) {
                    tabs.getTabs()[0].editor.unload();
                    tabs.getTabs()[0].unload();
                    tabs.unload();

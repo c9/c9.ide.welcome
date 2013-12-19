@@ -185,3 +185,18 @@
     margin-top: 0;
     color: rgb(150, 184, 62);
 }
+
+.welcome .black_dropdown{
+    background: transparent;
+    border-color: rgba(0, 0, 0, 0.35);
+    .gradient(~"linear-gradient(bottom, rgba(0, 0, 0, 0.13) 0%, rgba(0, 0, 0, 0) 100%)");
+}
+.welcome .black_dropdownOver{
+    .gradient(~"linear-gradient(bottom, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.07) 100%)");
+}
+.welcome .black_dropdownDown{
+    .gradient(~"linear-gradient(bottom, rgba(45, 45, 45, 0.08) 0%, rgba(0, 0, 0, 0.07) 100%)");
+}
+.welcome .black_dropdown .button{
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}

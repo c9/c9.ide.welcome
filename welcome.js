@@ -48,7 +48,6 @@ define(function(require, exports, module) {
                     }
                 }, handle);
             }, handle);
-            
         }
         
         var drawn = false;
