@@ -6,7 +6,7 @@
     top: 0;
     bottom: 0;
     overflow: auto;
-    display: flex;
+    .display-flex();
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-attachment: local;
@@ -28,7 +28,7 @@
 }
 
 .main {
-    flex: 1;
+    .flex(1);
     min-width: 460px;
     overflow: auto;
     position: relative;
@@ -37,7 +37,7 @@
 .sidepanel {
     max-width: 250px;
     min-width: 150px;
-    flex: 1;
+    .flex(1);
     padding: 30px 30px 0 20px;
     border-left: 1px solid rgba(255, 255, 255, 0.09);
     background: rgba(255, 255, 255, 0.08);
