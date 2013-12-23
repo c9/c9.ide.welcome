@@ -239,9 +239,15 @@ define(function(require, exports, module) {
                 var doc = e.doc;
                 var tab = doc.tab;
                 
-                var isDark = settings.get("user/general/@theme") == "dark";
-                tab.backgroundColor = isDark ? "#203947" : "#b7c9d4";
-                if (isDark) tab.className.add("dark");
+                function setTheme(e){
+                    var isDark = e.theme == "dark";
+                    tab.backgroundColor = isDark ? "#203947" : "#b7c9d4";
+                    if (isDark) tab.className.add("dark");
+                    else tab.className.remove("dark");
+                }
+                
+                layout.on("themeChange", setTheme);
+                setTheme({ theme: settings.get("user/general/@theme") });
                 
                 doc.title = "Welcome", 
                 doc.meta.welcome = true;
