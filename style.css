@@ -45,10 +45,10 @@
 
 .welcome:after {
     height: 7px;
-    background: ;
+    background: @welcome-top-border;
     content: "";
     position: absolute;
-    left: 778px;
+    left: 775px;
     right: 0;
     top: 0;
 }
