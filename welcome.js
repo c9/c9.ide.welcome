@@ -132,7 +132,7 @@ define(function(require, exports, module) {
                             width : 165,
                             items : [
                                 { caption: "Cloud9 Dark Theme", value: "dark" },
-                                { caption: "Cloud9 Bright Theme", value: "white" }
+                                { caption: "Cloud9 Bright Theme", value: "light" }
                             ],
                             position : 100
                         },
@@ -238,8 +238,10 @@ define(function(require, exports, module) {
             plugin.on("documentLoad", function(e){
                 var doc = e.doc;
                 var tab = doc.tab;
-                tab.backgroundColor = "#203947";
-                tab.className.add("dark");
+                
+                var isDark = settings.get("user/general/@theme") == "dark";
+                tab.backgroundColor = isDark ? "#203947" : "#b7c9d4";
+                if (isDark) tab.className.add("dark");
                 
                 doc.title = "Welcome", 
                 doc.meta.welcome = true;

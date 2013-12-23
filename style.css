@@ -1,5 +1,5 @@
 .welcome{
-    background: #193342 url("@{image-path}/welcome-cover.png") top left no-repeat;
+    background: @welcome-background top left no-repeat;
     left: 0;
     right: 0;
     position: absolute;
@@ -7,10 +7,9 @@
     bottom: 0;
     overflow: auto;
     .display-flex();
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    .font-smoothing(@welcome-font-smoothing);
     background-attachment: local;
-    color: #f1f1f1;
+    color: @welcome-color;
 }
 
 .welcome-logo{
@@ -24,7 +23,7 @@
 
 .welcome a{
     text-decoration: none;
-    color: #9BB11D;
+    color: @welcome-highlight-color;
 }
 
 .main {
@@ -39,8 +38,8 @@
     min-width: 150px;
     .flex(1);
     padding: 30px 30px 0 20px;
-    border-left: 1px solid rgba(255, 255, 255, 0.09);
-    background: rgba(255, 255, 255, 0.08);
+    border-left: 1px solid @welcome-panel-border-color;
+    background: @welcome-panel-background;
     overflow: auto;
 }
 
@@ -58,14 +57,12 @@
     position: absolute;
     font-size: 60px;
     font-family: Myriad Pro, Arial;
-    color: #f1f1f1;
     top: 67px;
     left: 205px;
     font-weight: normal;
 }
 
 .welcome .intro {
-    color: #f1f1f1;
     font-family: Arial;
     font-size: 12px;
     min-width: 400px;
@@ -140,7 +137,7 @@
 .welcome .form .cbblack.cbcontainer span,
 .welcome .label{
     font-size : 12px;
-    color : #f1f1f1;
+    color : inherit;
 }
 
 .welcome ul {
@@ -149,7 +146,7 @@
 
 .welcome ul li {
     line-height: 18px;
-    color: #9BB11D;
+    color: @welcome-highlight-color;
     cursor : pointer;
 }
 .welcome ul li:hover{
