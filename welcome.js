@@ -247,7 +247,7 @@ define(function(require, exports, module) {
                 }
                 
                 layout.on("themeChange", setTheme);
-                setTheme({ theme: settings.get("user/general/@theme") });
+                setTheme({ theme: settings.get("user/general/@theme") || "dark" });
                 
                 doc.title = "Welcome", 
                 doc.meta.welcome = true;
