@@ -134,6 +134,7 @@
     width: 400px;
 }
 
+.welcome .form .cbblack.cbcontainer,
 .welcome .form .cbblack.cbcontainer span,
 .welcome .label{
     font-size : 12px;
