@@ -192,7 +192,18 @@ define(function(require, exports, module) {
                             items    : list,
                             position : 180
                         },
-                        // Key Bindings
+                        {
+                            title : "Keyboard Mode",
+                            type  : "dropdown",
+                            path  : "user/ace/@keyboardmode",
+                            width : 165,
+                            items : [
+                                { caption: "Default", value: "default" },
+                                { caption: "Vim", value: "vim" },
+                                { caption: "Emacs", value: "emacs" }
+                            ],
+                            position : 190
+                        },
                         {
                             title        : "Soft Tabs",
                             type         : "checked-spinner",
