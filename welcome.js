@@ -257,7 +257,7 @@ define(function(require, exports, module) {
                     else tab.className.remove("dark");
                 }
                 
-                layout.on("themeChange", setTheme);
+                layout.on("themeChange", setTheme, doc);
                 setTheme({ theme: settings.get("user/general/@skin") || "dark" });
                 
                 doc.title = "Welcome", 
