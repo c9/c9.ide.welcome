@@ -27,6 +27,8 @@ define(function(require, exports, module) {
         
         var handle = editors.register("welcome", "URL Viewer", Welcome, []);
         
+        var WELCOME_INTRO = options.intro.replace(/\n/g, "<br />");
+        
         var loaded = false;
         function load() {
             if (loaded) return false;
@@ -104,7 +106,9 @@ define(function(require, exports, module) {
                 // Create UI elements
                 container = e.htmlNode;
                 
-                ui.insertHtml(container, require("text!./welcome.html"), plugin);
+                var html  = require("text!./welcome.html");
+                var nodes = ui.insertHtml(container, html, plugin);
+                nodes[0].querySelector(".intro").innerHTML = WELCOME_INTRO;
                 
                 var list = [];
                 var themes = ace.themes
