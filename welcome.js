@@ -27,7 +27,7 @@ define(function(require, exports, module) {
         
         var handle = editors.register("welcome", "URL Viewer", Welcome, []);
         
-        var WELCOME_INTRO = options.intro.replace(/\n/g, "<br />");
+        var WELCOME_INTRO = (options.intro || "").replace(/\n/g, "<br />");
         
         var loaded = false;
         function load() {
