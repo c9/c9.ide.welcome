@@ -36,9 +36,9 @@ define(function(require, exports, module) {
             
             tabManager.on("ready", function(){
                 settings.on("read", function(){
-                    if (!settings.getBool("state/welcome/@first")) {
+                    if (!settings.getBool("user/welcome/@first")) {
                         show(function(){
-                            settings.set("state/welcome/@first", true);
+                            settings.set("user/welcome/@first", true);
                         });
                         
                         // fs.exists("/README.md", function(exists){
@@ -147,13 +147,13 @@ define(function(require, exports, module) {
                             width : 165,
                             defaultValue : "default",
                             onchange : function(e){
-                                if (e.value == "minimal" && !settings.getBool("state/welcome/@switched")) {
+                                if (e.value == "minimal" && !settings.getBool("user/welcome/@switched")) {
                                     setTimeout(function(){
                                         var div = container.querySelector(".switched");
                                         div.style.display = "block";
                                         if (!apf.isMac)
                                             div.innerHTML = div.innerHTML.replace(/Command/g, "Ctrl");
-                                        settings.set("state/welcome/@switched", true);
+                                        settings.set("user/welcome/@switched", true);
                                     }, 500)
                                 }
                                 
