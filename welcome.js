@@ -40,16 +40,19 @@ define(function(require, exports, module) {
                         show(function(){
                             settings.set("user/welcome/@first", true);
                         });
-                        
-                        // fs.exists("/README.md", function(exists){
-                        //     if (exists)
-                        //         commands.exec("preview", null, { 
-                        //             path   : "/README.md", 
-                        //             active : false 
-                        //         });
-                        // });
                     }
                 }, handle);
+                
+                if (window.location.hash.match(/#openfile-(.*)/)) {
+                    var file = "/" + RegExp.$1;
+                    fs.exists(file, function(exists) {
+                        if (!exists) return;
+                        commands.exec("preview", null, {
+                            path: file,
+                            active: false
+                        });
+                    });
+                }
             }, handle);
         }
         
