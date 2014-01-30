@@ -35,7 +35,12 @@ define(function(require, exports, module) {
             loaded = true;
             
             tabManager.on("ready", function(){
-                settings.on("read", function(){
+                settings.on("read", function(e){
+                    if (e.reset) {
+                        settings.set("user/welcome/@first", true);
+                        return;
+                    }
+                    
                     if (!settings.getBool("user/welcome/@first")) {
                         show(function(){
                             settings.set("user/welcome/@first", true);
