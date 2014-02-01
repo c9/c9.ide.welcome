@@ -132,7 +132,6 @@ define(function(require, exports, module) {
                 
                 var form = new Form({
                     edge      : "3 3 8 3",
-                    model     : settings.model,
                     rowheight : 35,
                     colwidth  : 150,
                     style     : "padding:10px;",
