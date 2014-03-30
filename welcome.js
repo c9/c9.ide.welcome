@@ -116,7 +116,8 @@ define(function(require, exports, module) {
                 
                 var html  = require("text!./welcome.html");
                 var nodes = ui.insertHtml(container, html, plugin);
-                nodes[0].querySelector(".intro").innerHTML = WELCOME_INTRO;
+                var node  = nodes[0];
+                node.querySelector(".intro").innerHTML = WELCOME_INTRO;
                 
                 var list = [];
                 var themes = ace.themes
@@ -128,6 +129,37 @@ define(function(require, exports, module) {
                         });
                     else
                         list.push({ caption: base, value: themes[base] });
+                }
+                
+                var presetClick = function(){
+                    var value = this.id;
+                    
+                    current.className = "preset";
+                    this.className = "preset active";
+                    current = this;
+                    
+                    if (value != "default" && !settings.getBool("user/welcome/@switched")) {
+                        setTimeout(function(){
+                            var div = container.querySelector(".switched");
+                            div.style.display = "block";
+                            if (!apf.isMac)
+                                div.innerHTML = div.innerHTML.replace(/Command/g, "Ctrl");
+                            settings.set("user/welcome/@switched", true);
+                        }, 500);
+                    }
+                    
+                    setTimeout(function(){
+                        layout.setBaseLayout(value);
+                    });
+                };
+                
+                var presets = node.querySelectorAll(".preset");
+                var current, preset;
+                for (var i = 0; i < presets.length; i++) {
+                    if (~(preset = presets[i]).className.indexOf("active"))
+                        current = preset;
+                    
+                    preset.addEventListener("click", presetClick);
                 }
                 
                 var form = new Form({
@@ -147,33 +179,6 @@ define(function(require, exports, module) {
                         //     ],
                         //     position : 100
                         // },
-                        {
-                            title : "Base Layout",
-                            type  : "dropdown",
-                            // path  : "user/general/@layout",
-                            width : 165,
-                            defaultValue : "default",
-                            onchange : function(e){
-                                if (e.value == "minimal" && !settings.getBool("user/welcome/@switched")) {
-                                    setTimeout(function(){
-                                        var div = container.querySelector(".switched");
-                                        div.style.display = "block";
-                                        if (!apf.isMac)
-                                            div.innerHTML = div.innerHTML.replace(/Command/g, "Ctrl");
-                                        settings.set("user/welcome/@switched", true);
-                                    }, 500)
-                                }
-                                
-                                setTimeout(function(){
-                                    layout.setBaseLayout(e.value);
-                                });
-                            },
-                            items : [
-                                { caption: "Professional IDE", value: "default" },
-                                { caption: "Programmer's Editor", value: "minimal" }
-                            ],
-                            position : 150
-                        },
                         {
                             title : "Split Layout",
                             type  : "dropdown",
