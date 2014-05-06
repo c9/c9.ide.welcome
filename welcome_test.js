@@ -11,13 +11,13 @@ require([
     
     expect.setupArchitectTest([
         {
-            packagePath : "plugins/c9.core/c9",
-            workspaceId : "ubuntu/ip-10-35-77-180",
-            startdate   : new Date(),
-            debug       : true,
-            hosted      : true,
-            local       : false,
-            davPrefix   : "/"
+            packagePath: "plugins/c9.core/c9",
+            workspaceId: "ubuntu/ip-10-35-77-180",
+            startdate: new Date(),
+            debug: true,
+            hosted: true,
+            local: false,
+            davPrefix: "/"
         },
         
         "plugins/c9.core/ext",
@@ -35,8 +35,8 @@ require([
         "plugins/c9.ide.keys/commands",
         "plugins/c9.ide.keys/editor",
         {
-            packagePath  : "plugins/c9.ide.ui/ui",
-            staticPrefix : "plugins/c9.ide.ui"
+            packagePath: "plugins/c9.ide.ui/ui",
+            staticPrefix: "plugins/c9.ide.ui"
         },
         "plugins/c9.ide.editors/document",
         "plugins/c9.ide.editors/undomanager",
@@ -50,11 +50,11 @@ require([
         "plugins/c9.ide.ace/ace",
         {
             packagePath: "plugins/c9.ide.welcome/welcome",
-            staticPrefix : "plugins/c9.ide.welcome"
+            staticPrefix: "plugins/c9.ide.welcome"
         },
         {
-            packagePath : "plugins/c9.ide.preferences/preferences",
-            staticPrefix : "plugins/c9.ide.preferences"
+            packagePath: "plugins/c9.ide.preferences/preferences",
+            staticPrefix: "plugins/c9.ide.preferences"
         },
         "plugins/c9.ide.preferences/preferencepanel",
         "plugins/c9.ide.preferences/general",
@@ -69,31 +69,31 @@ require([
         
         // Mock plugins
         {
-            consumes : ["apf", "ui", "Plugin"],
-            provides : [
+            consumes: ["apf", "ui", "Plugin"],
+            provides: [
                 "menus", "layout", "watcher", "save", "clipboard",
                 "dialog.confirm", "dialog.alert", "auth.bootstrap", "info",
                 "dialog.error"
             ],
-            setup    : expect.html.mocked
+            setup: expect.html.mocked
         },
         {
-            consumes : ["tabManager", "welcome"],
-            provides : [],
-            setup    : main
+            consumes: ["tabManager", "welcome"],
+            provides: [],
+            setup: main
         }
     ], architect);
     
     function main(options, imports, register) {
-        var tabs     = imports.tabManager;
+        var tabs = imports.tabManager;
         
-        expect.html.setConstructor(function(tab){
+        expect.html.setConstructor(function(tab) {
             if (typeof tab == "object")
                 return tab.pane.aml.getPage("editor::" + tab.editorType).$ext;
         });
         
         describe('preferences', function() {
-            before(function(done){
+            before(function(done) {
                 apf.config.setProperty("allow-select", false);
                 apf.config.setProperty("allow-blur", false);
                 
@@ -111,7 +111,7 @@ require([
                 this.timeout(10000);
                 
                 it('should open a pane with just an editor', function(done) {
-                    tabs.openEditor("welcome", function(err, tab){
+                    tabs.openEditor("welcome", function(err, tab) {
                         expect(tabs.getTabs()).length.gt(0);
                         
                         done();
@@ -129,7 +129,7 @@ require([
                });
            });
            
-           after(function(done){
+           after(function(done) {
                document.body.style.marginBottom = "";
                done();
            });

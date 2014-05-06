@@ -12,16 +12,16 @@ define(function(require, exports, module) {
     */
 
     function main(options, imports, register) {
-        var Editor     = imports.Editor;
-        var editors    = imports.editors;
-        var ui         = imports.ui;
-        var fs         = imports.fs;
-        var ace        = imports.ace;
-        var commands   = imports.commands;
-        var layout     = imports.layout;
+        var Editor = imports.Editor;
+        var editors = imports.editors;
+        var ui = imports.ui;
+        var fs = imports.fs;
+        var ace = imports.ace;
+        var commands = imports.commands;
+        var layout = imports.layout;
         var tabManager = imports.tabManager;
-        var settings   = imports.settings;
-        var Form       = imports.Form;
+        var settings = imports.settings;
+        var Form = imports.Form;
         
         /***** Initialization *****/
         
@@ -35,7 +35,7 @@ define(function(require, exports, module) {
             loaded = true;
             
             tabManager.on("ready", function(){
-                settings.on("read", function(e){
+                settings.on("read", function(e) {
                     if (e.reset) {
                         settings.set("user/welcome/@first", true);
                         return;
@@ -73,14 +73,14 @@ define(function(require, exports, module) {
         
         handle.on("load", load);
 
-        var counter  = 0;
+        var counter = 0;
         
         /***** Methods *****/
         
         function search(){
             var found;
             var tabs = tabManager.getTabs();
-            tabs.every(function(tab){
+            tabs.every(function(tab) {
                 if (tab.document.meta.welcome) {
                     found = tab;
                     return false;
@@ -96,27 +96,27 @@ define(function(require, exports, module) {
                 return tabManager.focusTab(tab);
             
             tabManager.open({ 
-                editorType : "welcome", 
-                noanim     : true,
-                active     : true 
+                editorType: "welcome", 
+                noanim: true,
+                active: true 
             }, cb);
         }
         
         function Welcome(){
             var plugin = new Editor("Ajax.org", main.consumes, []);
-            //var emit   = plugin.getEmitter();
+            //var emit = plugin.getEmitter();
             
             var container;
             
-            plugin.on("draw", function(e){
+            plugin.on("draw", function(e) {
                 draw();
                 
                 // Create UI elements
                 container = e.htmlNode;
                 
-                var html  = require("text!./welcome.html");
+                var html = require("text!./welcome.html");
                 var nodes = ui.insertHtml(container, html, plugin);
-                var node  = nodes[0];
+                var node = nodes[0];
                 node.querySelector(".intro").innerHTML = WELCOME_INTRO;
                 
                 var list = [];
@@ -163,11 +163,11 @@ define(function(require, exports, module) {
                 }
                 
                 var form = new Form({
-                    edge      : "3 3 8 3",
-                    rowheight : 35,
-                    colwidth  : 150,
-                    style     : "padding:10px;",
-                    form      : [
+                    edge: "3 3 8 3",
+                    rowheight: 35,
+                    colwidth: 150,
+                    style: "padding:10px;",
+                    form: [
                         // {
                         //     title : "Main Theme",
                         //     type  : "dropdown",
@@ -180,14 +180,14 @@ define(function(require, exports, module) {
                         //     position : 100
                         // },
                         {
-                            title : "Split Layout",
-                            type  : "dropdown",
-                            width : 165,
-                            defaultValue : "nosplit",
-                            onchange : function(e){
+                            title: "Split Layout",
+                            type: "dropdown",
+                            width: 165,
+                            defaultValue: "nosplit",
+                            onchange: function(e) {
                                 commands.exec(e.value);
                             },
-                            items : [
+                            items: [
                                 { caption: "No Split", value: "nosplit" },
                                 { caption: "Two Vertical Split", value: "twovsplit" },
                                 { caption: "Two Horizontal Split", value: "twohsplit" },
@@ -195,46 +195,46 @@ define(function(require, exports, module) {
                                 { caption: "Three Split (Left)", value: "threeleft" },
                                 { caption: "Three Split (Right)", value: "threeright" }
                             ],
-                            position : 150
+                            position: 150
                         },
                         {
-                            title    : "Editor (Ace) Theme",
-                            type     : "dropdown",
-                            path     : "user/ace/@theme",
-                            width    : 165,
-                            onchange : function(e){
+                            title: "Editor (Ace) Theme",
+                            type: "dropdown",
+                            path: "user/ace/@theme",
+                            width: 165,
+                            onchange: function(e) {
                                 ace.setTheme(e.value);
                             },
-                            items    : list,
-                            position : 180
+                            items: list,
+                            position: 180
                         },
                         {
-                            title : "Keyboard Mode",
-                            type  : "dropdown",
-                            path  : "user/ace/@keyboardmode",
-                            width : 165,
-                            items : [
+                            title: "Keyboard Mode",
+                            type: "dropdown",
+                            path: "user/ace/@keyboardmode",
+                            width: 165,
+                            items: [
                                 { caption: "Default", value: "default" },
                                 { caption: "Vim", value: "vim" },
                                 { caption: "Emacs", value: "emacs" }
                             ],
-                            position : 190
+                            position: 190
                         },
                         {
-                            title        : "Soft Tabs",
-                            type         : "checked-spinner",
-                            checkboxPath : "project/ace/@useSoftTabs",
-                            path         : "project/ace/@tabSize",
-                            min          : "1",
-                            max          : "64",
-                            width        : "50",
-                            position     : 200
+                            title: "Soft Tabs",
+                            type: "checked-spinner",
+                            checkboxPath: "project/ace/@useSoftTabs",
+                            path: "project/ace/@tabSize",
+                            min: "1",
+                            max: "64",
+                            width: "50",
+                            position: 200
                         },
                         {
-                            title    : "Enable Auto-Save",
-                            type     : "checkbox",
-                            position : 300,
-                            path     : "user/general/@autosave"
+                            title: "Enable Auto-Save",
+                            type: "checkbox",
+                            position: 300,
+                            path: "user/general/@autosave"
                         }
                     ]
                 });
@@ -262,11 +262,11 @@ define(function(require, exports, module) {
             plugin.on("load", function(){
                 
             });
-            plugin.on("documentLoad", function(e){
+            plugin.on("documentLoad", function(e) {
                 var doc = e.doc;
                 var tab = doc.tab;
                 
-                function setTheme(e){
+                function setTheme(e) {
                     var isDark = e.theme == "dark";
                     tab.backgroundColor = isDark ? "#203947" : "#b7c9d4";
                     if (isDark) tab.className.add("dark");
