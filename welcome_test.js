@@ -101,7 +101,7 @@ require([
                 
                 document.body.style.marginBottom = "66%";
                 
-                tabs.on("ready", function(){
+                tabs.once("ready", function(){
                     done();
                 })
             });

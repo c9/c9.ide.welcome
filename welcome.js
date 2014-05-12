@@ -34,7 +34,7 @@ define(function(require, exports, module) {
             if (loaded) return false;
             loaded = true;
             
-            tabManager.on("ready", function(){
+            tabManager.once("ready", function(){
                 settings.on("read", function(e) {
                     if (e.reset) {
                         settings.set("user/welcome/@first", true);
