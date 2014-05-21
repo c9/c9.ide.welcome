@@ -59,7 +59,7 @@ define(function(require, exports, module) {
                         if (!exists) return;
                         commands.exec("preview", null, {
                             path: file,
-                            active: false
+                            focus: options.focusOpenFile || false
                         });
                     });
                 }
