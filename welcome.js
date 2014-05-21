@@ -71,6 +71,17 @@ define(function(require, exports, module) {
             if (drawn) return;
             drawn = true;
             
+            if (options.checkOS) {
+                fs.stat("~/" + c9.projectId, function(err, stat){
+                    if (!err && stat.fullPath == join(c9.home, "workspace")) {
+                        if (drawn)
+                            intro.innerHTML = WELCOME_INTRO + OS_INTRO;
+                        else
+                            WELCOME_INTRO += OS_INTRO;
+                    }
+                });
+            }
+            
             // Insert CSS
             ui.insertCss(require("text!./style.css"), 
                 options.staticPrefix, handle);
@@ -267,16 +278,7 @@ define(function(require, exports, module) {
             /***** Lifecycle *****/
             
             plugin.on("load", function(){
-                if (options.checkOS) {
-                    fs.stat("~/" + c9.projectId, function(err, stat){
-                        if (!err && stat.fullPath == join(c9.home, "workspace")) {
-                            if (drawn)
-                                intro.innerHTML = WELCOME_INTRO + OS_INTRO;
-                            else
-                                WELCOME_INTRO += OS_INTRO;
-                        }
-                    });
-                }
+                
             });
             plugin.on("documentLoad", function(e) {
                 var doc = e.doc;
