@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     main.consumes = [
         "Editor", "editors", "ui", "tabManager", "settings", "Form",
-        "commands", "fs", "ace", "layout"
+        "commands", "fs", "ace", "layout", "c9"
     ];
     main.provides = ["welcome"];
     return main;
@@ -16,6 +16,7 @@ define(function(require, exports, module) {
         var editors = imports.editors;
         var ui = imports.ui;
         var fs = imports.fs;
+        var c9 = imports.c9;
         var ace = imports.ace;
         var commands = imports.commands;
         var layout = imports.layout;
@@ -23,11 +24,15 @@ define(function(require, exports, module) {
         var settings = imports.settings;
         var Form = imports.Form;
         
+        var join = require("path").join;
+        
         /***** Initialization *****/
         
         var handle = editors.register("welcome", "URL Viewer", Welcome, []);
+        var intro;
         
         var WELCOME_INTRO = (options.intro || "").replace(/\n/g, "<br />");
+        var OS_INTRO = "\n You can now use sudo and apt-get to manage your workspace!";
         
         var loaded = false;
         function load() {
@@ -117,7 +122,9 @@ define(function(require, exports, module) {
                 var html = require("text!./welcome.html");
                 var nodes = ui.insertHtml(container, html, plugin);
                 var node = nodes[0];
-                node.querySelector(".intro").innerHTML = WELCOME_INTRO;
+                
+                intro = node.querySelector(".intro");
+                intro.innerHTML = WELCOME_INTRO;
                 
                 var list = [];
                 var themes = ace.themes
@@ -260,7 +267,16 @@ define(function(require, exports, module) {
             /***** Lifecycle *****/
             
             plugin.on("load", function(){
-                
+                if (options.checkOS) {
+                    fs.stat("~/" + c9.projectId, function(err, stat){
+                        if (!err && stat.fullPath == join(c9.home, "workspace")) {
+                            if (drawn)
+                                intro.innerHTML = WELCOME_INTRO + OS_INTRO;
+                            else
+                                WELCOME_INTRO += OS_INTRO;
+                        }
+                    });
+                }
             });
             plugin.on("documentLoad", function(e) {
                 var doc = e.doc;
