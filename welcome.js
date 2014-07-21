@@ -234,7 +234,8 @@ define(function(require, exports, module) {
                             items: [
                                 { caption: "Default", value: "default" },
                                 { caption: "Vim", value: "vim" },
-                                { caption: "Emacs", value: "emacs" }
+                                { caption: "Emacs", value: "emacs" },
+                                { caption: "Sublime", value: "sublime" }
                             ],
                             position: 190
                         },
