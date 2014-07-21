@@ -1,4 +1,4 @@
-.welcome{
+.welcome {
     background: @welcome-background top left no-repeat;
     left: 0;
     right: 0;
@@ -12,7 +12,7 @@
     color: @welcome-color;
 }
 
-.welcome-logo{
+.welcome-logo {
     position: absolute;
     background: url("@{image-path}/welcome-logo.png") top left no-repeat;
     width: 155px;
@@ -21,7 +21,14 @@
     top: 34px;
 }
 
-.welcome a{
+@media print, (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+    .welcome-logo {
+        background-image: url("@{image-path}/welcome-logo@2x.png");
+        background-size: 155px 103px;
+    }
+}
+
+.welcome a {
     text-decoration: none;
     color: @welcome-highlight-color;
 }
@@ -228,7 +235,7 @@
     box-sizing: border-box;
     border: 1px solid transparent;
     background: no-repeat 50% 50%;
-    
+
     border: 1px solid rgba(255, 255, 255, 0.17);
     background-color: rgba(148, 148, 148, 0.1);
 }
