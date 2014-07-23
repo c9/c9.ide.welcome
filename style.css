@@ -21,7 +21,7 @@
     top: 34px;
 }
 
-@media print, (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 120dpi) {
+@media print, (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx) {
     .welcome-logo {
         background-image: url("@{image-path}/welcome-logo@2x.png");
         background-size: 155px 103px;
