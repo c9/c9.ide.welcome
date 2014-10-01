@@ -89,8 +89,6 @@ define(function(require, exports, module) {
         
         handle.on("load", load);
 
-        var counter = 0;
-        
         /***** Methods *****/
         
         function search(){
@@ -305,7 +303,7 @@ define(function(require, exports, module) {
                 
             });
             
-            plugin.load("welcome" + counter++);
+            plugin.load(null, "welcome");
             
             return plugin;
         }
