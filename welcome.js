@@ -184,17 +184,17 @@ define(function(require, exports, module) {
                     colwidth: 150,
                     style: "padding:10px;",
                     form: [
-                        // {
-                        //     title : "Main Theme",
-                        //     type  : "dropdown",
-                        //     path  : "user/general/@skin",
-                        //     width : 165,
-                        //     items : [
-                        //         { caption: "Cloud9 Dark Theme", value: "dark" },
-                        //         { caption: "Cloud9 Bright Theme", value: "light" }
-                        //     ],
-                        //     position : 100
-                        // },
+                        {
+                            title : "Main Theme",
+                            type  : "dropdown",
+                            path  : "user/general/@skin",
+                            width : 165,
+                            items : [
+                                { caption: "Cloud9 Classic Dark Theme", value: "dark" },
+                                { caption: "Cloud9 Flat White Theme", value: "flat-light" }
+                            ],
+                            position : 100
+                        },
                         {
                             title: "Split Layout",
                             type: "dropdown",
