@@ -34,6 +34,14 @@ define(function(require, exports, module) {
         var WELCOME_INTRO = (options.intro || "").replace(/\n/g, "<br />");
         var OS_INTRO = "\n You can now use sudo and apt-get to manage your workspace!";
         
+        var defaults = {
+            "flat-light" : "#F8FDFF", 
+            "light" : "#b7c9d4", 
+            "light-gray" : "#b7c9d4", 
+            "dark"  : "#203947",
+            "dark-gray"  : "#203947"
+        };
+        
         var loaded = false;
         function load() {
             if (loaded) return false;
@@ -180,7 +188,7 @@ define(function(require, exports, module) {
                 
                 var form = new Form({
                     edge: "3 3 8 3",
-                    rowheight: 35,
+                    rowheight: 40,
                     colwidth: 150,
                     style: "padding:10px;",
                     form: [
@@ -188,7 +196,7 @@ define(function(require, exports, module) {
                             title : "Main Theme",
                             type  : "dropdown",
                             path  : "user/general/@skin",
-                            width : 165,
+                            width : 190,
                             items : [
                                 { caption: "Cloud9 Classic Dark Theme", value: "dark" },
                                 { caption: "Cloud9 Flat White Theme", value: "flat-light" }
@@ -198,7 +206,7 @@ define(function(require, exports, module) {
                         {
                             title: "Split Layout",
                             type: "dropdown",
-                            width: 165,
+                            width: 190,
                             defaultValue: "nosplit",
                             onchange: function(e) {
                                 commands.exec(e.value);
@@ -217,7 +225,7 @@ define(function(require, exports, module) {
                             title: "Editor (Ace) Theme",
                             type: "dropdown",
                             path: "user/ace/@theme",
-                            width: 165,
+                            width: 190,
                             onchange: function(e) {
                                 ace.setTheme(e.value);
                             },
@@ -228,7 +236,7 @@ define(function(require, exports, module) {
                             title: "Keyboard Mode",
                             type: "dropdown",
                             path: "user/ace/@keyboardmode",
-                            width: 165,
+                            width: 190,
                             items: [
                                 { caption: "Default", value: "default" },
                                 { caption: "Vim", value: "vim" },
@@ -285,7 +293,7 @@ define(function(require, exports, module) {
                 
                 function setTheme(e) {
                     var isDark = e.theme == "dark";
-                    tab.backgroundColor = isDark ? "#203947" : "#b7c9d4";
+                    tab.backgroundColor = defaults[e.theme];
                     if (isDark) tab.classList.add("dark");
                     else tab.classList.remove("dark");
                 }

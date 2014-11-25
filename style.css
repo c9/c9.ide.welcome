@@ -14,18 +14,12 @@
 
 .welcome-logo {
     position: absolute;
-    background: url("@{image-path}/welcome-logo.png") top left no-repeat;
+    .image-2x(@welcome-logo-image, @welcome-logo-image-width, @welcome-logo-image-height);
+    background-position: top left;
     width: 155px;
     height: 103px;
     left: 32px;
     top: 34px;
-}
-
-@media print, (-o-min-device-pixel-ratio: 5/4), (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx) {
-    .welcome-logo {
-        background-image: url("@{image-path}/welcome-logo@2x.png");
-        background-size: 155px 103px;
-    }
 }
 
 .welcome a {
@@ -50,7 +44,7 @@
     overflow: auto;
 }
 
-.welcome:after {
+.welcome:after when(@welcome-alter-widgets = true) {
     height: 7px;
     background: @welcome-top-border;
     content: "";
@@ -81,7 +75,8 @@
 .welcome h3{
     font-weight : normal;
     font-size : 12px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.39);
+    color: @welcome-heading-color;
+    border-bottom: @welcome-heading-border-bottom;
     padding-bottom: 4px;
     margin-bottom: 9px;
 }
@@ -194,18 +189,18 @@
     line-height: 1.4em;
 }
 
-.welcome .black_dropdown{
+.welcome .black_dropdown when(@welcome-alter-widgets = true){
     background: transparent;
     border-color: rgba(0, 0, 0, 0.35);
     .gradient(~"linear-gradient(bottom, rgba(0, 0, 0, 0.13) 0%, rgba(0, 0, 0, 0) 100%)");
 }
-.welcome .black_dropdownOver{
+.welcome .black_dropdownOver when(@welcome-alter-widgets = true){
     .gradient(~"linear-gradient(bottom, rgba(0, 0, 0, 0) 0%, rgba(255, 255, 255, 0.02) 100%)");
 }
-.welcome .black_dropdownDown{
+.welcome .black_dropdownDown when(@welcome-alter-widgets = true){
     .gradient(~"linear-gradient(bottom, rgba(45, 45, 45, 0.08) 0%, rgba(0, 0, 0, 0.07) 100%)");
 }
-.welcome .black_dropdown .button{
+.welcome .black_dropdown .button when(@welcome-alter-widgets = true){
     border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 /*.c9-optionList{*/
