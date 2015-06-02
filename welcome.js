@@ -267,7 +267,7 @@ define(function(require, exports, module) {
                 form.attachTo(container.querySelector(".configure .form"));
                 
                 container.querySelector(".configure .more").onclick = function(){
-                    commands.exec("togglepreferences");
+                    commands.exec("openpreferences");
                 };
                 container.querySelector(".openterminal").onclick = function(){
                     tabManager.openEditor("terminal", true, function(){});
