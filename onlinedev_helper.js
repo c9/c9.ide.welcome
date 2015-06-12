@@ -1,0 +1,46 @@
+/**
+ * Show helpful welcome notification for onlinedev developers!
+ */
+define(function(require, exports, module) {
+    "use strict";
+
+    main.consumes = [
+        "Plugin", "ui", "dialog.notification", "pubsub"
+    ];
+    main.provides = ["onlinedev_helper"];
+    return main;
+
+    function main(options, imports, register) {
+        var Plugin = imports.Plugin;
+        var notification = imports["dialog.notification"];
+        var pubsub = imports.pubsub;
+        
+        var plugin = new Plugin("Ajax.org", main.consumes);
+        
+        var loaded = false;
+        function load() {
+            if (loaded) return false;
+            loaded = true;
+            
+            var suffix = "https://newclient-lennartcl.c9.io".replace(/.*:\/\//, "");
+            
+            var hide = notification.show('<div class="c9-readonly">Welcome to onlinedev! Please authorize certificates of these pages: '
+                + '<a href="https://' + suffix + '" target="_blank">' + suffix + '</a> '
+                + '<a href="https://vfs.' + suffix + '" target="_blank">vfs.' + suffix + '</a> '
+                + "</div>");
+                
+            pubsub.once("connected", function() {
+                hide();
+            });
+        }
+        
+        plugin.on("load", function(){
+            load();
+        });
+        plugin.on("unload", function(){
+            loaded = false;
+        });
+        
+        register(null, { "onlinedev_helper" : plugin });
+    }
+});
