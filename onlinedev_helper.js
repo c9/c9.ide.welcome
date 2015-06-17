@@ -23,6 +23,8 @@ define(function(require, exports, module) {
             loaded = true;
             
             var suffix = options.baseUrl.replace(/.*:\/\//, "");
+            if (suffix === "c9.dev")
+                return; // bail out, we have a cert for that
             
             var hide = notification.show('<div class="c9-readonly">Welcome to onlinedev! Please authorize certificates of these pages: '
                 + '<a href="https://' + suffix + '" target="_blank">' + suffix + '</a> '
