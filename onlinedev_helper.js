@@ -22,7 +22,7 @@ define(function(require, exports, module) {
             if (loaded) return false;
             loaded = true;
             
-            var suffix = "https://newclient-lennartcl.c9.io".replace(/.*:\/\//, "");
+            var suffix = options.baseUrl.replace(/.*:\/\//, "");
             
             var hide = notification.show('<div class="c9-readonly">Welcome to onlinedev! Please authorize certificates of these pages: '
                 + '<a href="https://' + suffix + '" target="_blank">' + suffix + '</a> '
