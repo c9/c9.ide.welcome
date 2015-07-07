@@ -26,10 +26,10 @@ define(function(require, exports, module) {
             if (suffix === "c9.dev")
                 return; // bail out, we have a cert for that
             
-            var hide = notification.show('<div class="c9-readonly">Welcome to onlinedev! Please authorize certificates of these pages: '
-                + '<a href="https://vfs.' + suffix + '" target="_blank">vfs.' + suffix + '</a> '
-                + '<a href="https://api.' + suffix + '" target="_blank">api.' + suffix + '</a> '
+            var hide = notification.show('<div class="c9-readonly">Welcome Cloud9 developer! Please authorize certificates of these pages: '
                 + '<a href="https://' + suffix + '" target="_blank">' + suffix + '</a> '
+                + '<a href="https://api.' + suffix + '" target="_blank">api.' + suffix + '</a> '
+                + '<a href="https://vfs.' + suffix + '" target="_blank">vfs.' + suffix + '</a> '
                 + "</div>");
                 
             pubsub.once("connected", function() {
