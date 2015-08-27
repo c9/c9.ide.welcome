@@ -28,7 +28,18 @@ define(function(require, exports, module) {
         
         /***** Initialization *****/
         
-        var handle = editors.register("welcome", "URL Viewer", Welcome, []);
+        var targetWelcome = Welcome;
+        (function() {
+            var replacement = options.replacement,
+                pkg;
+            if (replacement) {
+                pkg = pkg || require(replacement.packagePath);
+                if (pkg) {
+                    targetWelcome = pkg[replacement.method];
+                }
+            }
+        })();
+        var handle = editors.register("welcome", "URL Viewer", targetWelcome, []);
         var intro;
         
         var WELCOME_INTRO = (options.intro || "").replace(/\n/g, "<br />");
