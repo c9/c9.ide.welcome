@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     main.consumes = [
         "Editor", "editors", "ui", "tabManager", "settings", "Form",
-        "commands", "fs", "ace", "layout", "c9"
+        "commands", "fs", "ace", "layout", "c9", "menus"
     ];
     main.provides = ["welcome"];
     return main;
@@ -23,7 +23,8 @@ define(function(require, exports, module) {
         var tabManager = imports.tabManager;
         var settings = imports.settings;
         var Form = imports.Form;
-        
+        var menus = imports.menus;
+
         var join = require("path").join;
         
         /***** Initialization *****/
@@ -46,6 +47,11 @@ define(function(require, exports, module) {
         function load() {
             if (loaded) return false;
             loaded = true;
+            
+            menus.addItemByPath("Support/Welcome Page", new ui.item({ 
+                onclick: function(){ tabManager.openEditor("welcome", true, function(){}) }
+            }), 150, handle);
+
             
             tabManager.once("ready", function(){
                 settings.on("read", function(e) {
