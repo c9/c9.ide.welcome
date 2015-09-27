@@ -37,6 +37,7 @@ define(function(require, exports, module) {
         
         var defaults = {
             "flat-light" : "#F8FDFF", 
+            "flat-dark"  : "#203947",
             "light" : "#b7c9d4", 
             "light-gray" : "#b7c9d4", 
             "dark"  : "#203947",
@@ -205,7 +206,8 @@ define(function(require, exports, module) {
                             width : 190,
                             items : [
                                 { caption: "Cloud9 Classic Dark Theme", value: "dark" },
-                                { caption: "Cloud9 Flat White Theme", value: "flat-light" }
+                                { caption: "Cloud9 Flat Light Theme", value: "flat-light" },
+                                { caption: "Cloud9 Flat Dark Theme", value: "flat-dark" }
                             ],
                             position : 100
                         },
