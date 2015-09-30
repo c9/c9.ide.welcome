@@ -206,8 +206,8 @@ define(function(require, exports, module) {
                             width : 190,
                             items : [
                                 { caption: "Cloud9 Classic Dark Theme", value: "dark" },
-                                { caption: "Cloud9 Flat Light Theme", value: "flat-light" },
-                                { caption: "Cloud9 Flat Dark Theme", value: "flat-dark" }
+                                { caption: "Cloud9 Flat Light Theme", value: "flat-light" }
+                                // { caption: "Cloud9 Flat Dark Theme", value: "flat-dark" }
                             ],
                             position : 100
                         },
