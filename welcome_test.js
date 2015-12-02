@@ -1,7 +1,6 @@
 /*global describe it before after */
 
 "use client";
-"use blacklist";
 
 require([
     "lib/architect/architect", 
