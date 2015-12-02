@@ -301,7 +301,9 @@ define(function(require, exports, module) {
                 
                 function setTheme(e) {
                     var isDark = e.theme == "dark";
-                    tab.backgroundColor = defaults[e.theme];
+                    var backgroundColor = defaults[e.theme];
+                    if (!backgroundColor) return;
+                    tab.backgroundColor = backgroundColor;
                     if (isDark) tab.classList.add("dark");
                     else tab.classList.remove("dark");
                 }
