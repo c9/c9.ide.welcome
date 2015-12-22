@@ -262,6 +262,12 @@ define(function(require, exports, module) {
                             max: "64",
                             width: "50",
                             position: 200
+                        },
+                        {
+                            title: "Enable Auto-Save",
+                            type: "checkbox",
+                            position: 300,
+                            path: "user/general/@autosave"
                         }
                     ]
                 });
