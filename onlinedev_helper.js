@@ -27,7 +27,6 @@ define(function(require, exports, module) {
                 return; // bail out, we have a cert for that
             
             var hide = notification.show('<div class="c9-readonly">Welcome Cloud9 developer! Please authorize certificates of these pages: '
-                + '<a href="https://' + suffix + '" target="_blank">' + suffix + '</a> '
                 + '<a href="https://api.' + suffix + '" target="_blank">api.' + suffix + '</a> '
                 + '<a href="https://vfs.' + suffix + '" target="_blank">vfs.' + suffix + '</a> '
                 + "</div>");
