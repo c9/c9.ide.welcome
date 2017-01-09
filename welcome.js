@@ -49,9 +49,9 @@ define(function(require, exports, module) {
             if (loaded) return false;
             loaded = true;
             
-            menus.addItemByPath("Support/Welcome Page", new ui.item({ 
+            menus.addItemByPath("Cloud9/Welcome Page", new ui.item({
                 onclick: function(){ tabManager.openEditor("welcome", true, function(){}) }
-            }), 150, handle);
+            }), 320, handle);
 
             
             tabManager.once("ready", function(){
