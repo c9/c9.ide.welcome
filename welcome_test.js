@@ -103,13 +103,13 @@ require([
                 
                 document.body.style.marginBottom = "66%";
                 
-                tabs.once("ready", function(){
+                tabs.once("ready", function() {
                     done();
-                })
+                });
             });
             
             
-            describe("Welcome", function(){
+            describe("Welcome", function() {
                 this.timeout(10000);
                 
                 it('should open a pane with just an editor', function(done) {
@@ -120,8 +120,8 @@ require([
                     });
                 });
             });
-            describe("unload()", function(){
-               this.timeout(10000)
+            describe("unload()", function() {
+               this.timeout(10000);
                
                it('should unload the welcome screen', function(done) {
                    tabs.getTabs()[0].editor.unload();

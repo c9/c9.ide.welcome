@@ -36,12 +36,12 @@ define(function(require, exports, module) {
         var OS_INTRO = "\n You can now use sudo and apt-get to manage your workspace!";
         
         var defaults = {
-            "flat-light" : "#F8FDFF", 
-            "flat-dark"  : "#203947",
-            "light" : "#b7c9d4", 
-            "light-gray" : "#b7c9d4", 
-            "dark"  : "#203947",
-            "dark-gray"  : "#203947"
+            "flat-light": "#F8FDFF", 
+            "flat-dark": "#203947",
+            "light": "#b7c9d4", 
+            "light-gray": "#b7c9d4", 
+            "dark": "#203947",
+            "dark-gray": "#203947"
         };
         
         var loaded = false;
@@ -50,11 +50,11 @@ define(function(require, exports, module) {
             loaded = true;
             
             menus.addItemByPath("Cloud9/Welcome Page", new ui.item({
-                onclick: function(){ tabManager.openEditor("welcome", true, function(){}) }
+                onclick: function() { tabManager.openEditor("welcome", true, function() {}); }
             }), 320, handle);
 
             
-            tabManager.once("ready", function(){
+            tabManager.once("ready", function() {
                 settings.on("read", function(e) {
                     if (e.reset) {
                         settings.set("user/welcome/@first", true);
@@ -62,7 +62,7 @@ define(function(require, exports, module) {
                     }
                     
                     if (!settings.getBool("user/welcome/@first")) {
-                        show(function(){
+                        show(function() {
                             settings.set("user/welcome/@first", true);
                         });
                     }
@@ -87,7 +87,7 @@ define(function(require, exports, module) {
             drawn = true;
             
             if (options.checkOS) {
-                fs.stat("~/" + c9.projectId, function(err, stat){
+                fs.stat("~/" + c9.projectId, function(err, stat) {
                     if (!err && stat.fullPath == join(c9.home, "workspace")) {
                         if (drawn)
                             intro.innerHTML = WELCOME_INTRO + OS_INTRO;
@@ -106,7 +106,7 @@ define(function(require, exports, module) {
 
         /***** Methods *****/
         
-        function search(){
+        function search() {
             var found;
             var tabs = tabManager.getTabs();
             tabs.every(function(tab) {
@@ -131,7 +131,7 @@ define(function(require, exports, module) {
             }, cb);
         }
         
-        function Welcome(){
+        function Welcome() {
             var plugin = new Editor("Ajax.org", main.consumes, []);
             //var emit = plugin.getEmitter();
             
@@ -151,7 +151,7 @@ define(function(require, exports, module) {
                 intro.innerHTML = WELCOME_INTRO;
                 
                 var list = [];
-                var themes = ace.themes
+                var themes = ace.themes;
                 for (var base in themes) {
                     if (themes[base] instanceof Array)
                         themes[base].forEach(function (n) {
@@ -162,7 +162,7 @@ define(function(require, exports, module) {
                         list.push({ caption: base, value: themes[base] });
                 }
                 
-                var presetClick = function(){
+                var presetClick = function() {
                     var value = this.id;
                     
                     current.className = "preset";
@@ -170,7 +170,7 @@ define(function(require, exports, module) {
                     current = this;
                     
                     if (value != "default" && !settings.getBool("user/welcome/@switched")) {
-                        setTimeout(function(){
+                        setTimeout(function() {
                             var div = container.querySelector(".switched");
                             div.style.display = "block";
                             if (!apf.isMac)
@@ -179,7 +179,7 @@ define(function(require, exports, module) {
                         }, 500);
                     }
                     
-                    setTimeout(function(){
+                    setTimeout(function() {
                         layout.setBaseLayout(value);
                     });
                 };
@@ -200,16 +200,16 @@ define(function(require, exports, module) {
                     style: "padding:10px;",
                     form: [
                         {
-                            title : "Main Theme",
-                            type  : "dropdown",
-                            path  : "user/general/@skin",
-                            width : 190,
-                            items : [
+                            title: "Main Theme",
+                            type: "dropdown",
+                            path: "user/general/@skin",
+                            width: 190,
+                            items: [
                                 { caption: "Cloud9 Classic Dark Theme", value: "dark" },
                                 { caption: "Cloud9 Flat Light Theme", value: "flat-light" }
                                 // { caption: "Cloud9 Flat Dark Theme", value: "flat-dark" }
                             ],
-                            position : 100
+                            position: 100
                         },
                         {
                             title: "Split Layout",
@@ -268,16 +268,16 @@ define(function(require, exports, module) {
                 
                 form.attachTo(container.querySelector(".configure .form"));
                 
-                container.querySelector(".configure .more").onclick = function(){
+                container.querySelector(".configure .more").onclick = function() {
                     commands.exec("openpreferences");
                 };
-                container.querySelector(".openterminal").onclick = function(){
-                    tabManager.openEditor("terminal", true, function(){});
+                container.querySelector(".openterminal").onclick = function() {
+                    tabManager.openEditor("terminal", true, function() {});
                 };
-                container.querySelector(".openconsole").onclick = function(){
+                container.querySelector(".openconsole").onclick = function() {
                     commands.exec("toggleconsole");
                 };
-                container.querySelector(".newfile").onclick = function(){
+                container.querySelector(".newfile").onclick = function() {
                     commands.exec("newfile");
                 };
             });
@@ -286,7 +286,7 @@ define(function(require, exports, module) {
             
             /***** Lifecycle *****/
             
-            plugin.on("load", function(){
+            plugin.on("load", function() {
                 
             });
             plugin.on("documentLoad", function(e) {

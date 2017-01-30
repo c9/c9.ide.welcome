@@ -36,13 +36,13 @@ define(function(require, exports, module) {
             });
         }
         
-        plugin.on("load", function(){
+        plugin.on("load", function() {
             load();
         });
-        plugin.on("unload", function(){
+        plugin.on("unload", function() {
             loaded = false;
         });
         
-        register(null, { "onlinedev_helper" : plugin });
+        register(null, { "onlinedev_helper": plugin });
     }
 });
